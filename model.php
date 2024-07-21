@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Models;
-
-use PDO;
-
-class Product
+class Model
 {
     public function getData(): array
     {
         $dsn = "mysql:host=localhost;dbname=product_db;charset=utf8;port=3306";
 
-        $pdo = new PDO($dsn, "product_db_user", "secret", [
+        $pdo = new PDO($dsn, "test", "Password@12345", [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
 

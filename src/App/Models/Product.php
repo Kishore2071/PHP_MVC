@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use PDO;
+use App\Database;
 
 class Product
 {
+    public function __construct(private Database $database)
+    {
+    }
+
     public function getData(): array
     {
-        $dsn = "mysql:host=localhost;dbname=product_db;charset=utf8;port=3306";
-
-        $pdo = new PDO($dsn, "test", "Password@12345", [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
+        $pdo = $this->database->getConnection();
 
         $stmt = $pdo->query("SELECT * FROM product");
 

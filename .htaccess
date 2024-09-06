@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^ index.php
+RewriteRule (.*) public/$1

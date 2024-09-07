@@ -8,6 +8,8 @@ use PDO;
 
 class Database
 {
+    private ?PDO $pdo = null;
+
     public function __construct(private string $host,
                                 private string $name,
                                 private string $user,
@@ -17,10 +19,15 @@ class Database
 
     public function getConnection(): PDO
     {
-        $dsn = "mysql:host={$this->host};dbname={$this->name};charset=utf8;port=3306";
+        if ($this->pdo === null) {
 
-        return new PDO($dsn, $this->user, $this->password, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
+            $dsn = "mysql:host={$this->host};dbname={$this->name};charset=utf8;port=3306";
+
+            $this->pdo = new PDO($dsn, $this->user, $this->password, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
+        }
+
+        return $this->pdo;
     }
 }
